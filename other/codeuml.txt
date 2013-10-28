@@ -1,0 +1,164 @@
+Object <|-- Asteroid
+Object <|-- Bullet
+Bullet <|-- Laser
+Object <|-- FlyingSaucer
+Object <|-- SpaceShip
+
+ObjectManager "1" *-- "many" Asteroid : contains
+ObjectManager "1" *-- "many" Bullet : contains
+ObjectManager "1" *-- "many" FlyingSaucer : contains
+ObjectManager "1" *-- "many" Laser : contains
+ObjectManager o-- SpaceShip : agregation
+ObjectManager --> "1" Game
+
+
+
+class Object {
+    Object()
+    Object(int worldWidth, int worldHeight, float scaleFactor = 1, float accFactor = 0, float dragFactor = 0)
+    
+    inline void setMainParameters(int worldWidth, int worldHeight, float scaleFactor, float accFactor, float dragFactor)
+
+    virtual void rotate(int angle)
+    virtual void move()
+    virtual void update()
+    virtual void draw() = 0
+    virtual int getRadius()
+
+    inline void setCollision()
+    bool isCollision()
+
+    inline PointF getCenter()
+    inline float getAngle()
+    inline float getScaleFactor()
+    inline PointF getDirection()
+    inline void followToPoint(PointF point)
+
+    int worldWidth_, worldHeight_
+    PointF center_
+    float angle_
+    PointF velocityVec_
+    float accFactor_
+    float dragFactor_
+    float scaleFactor_
+    bool isCollision_
+}
+
+class Asteroid {
+
+    Asteroid()
+    Asteroid(int worldWidth, int worldHeight, PointF center, float angle, float scaleFactor = 1)
+        
+    virtual void draw()
+    virtual int getRadius()
+
+    void createGeometry()
+    
+    float rotFactor_
+    std::vector<PointF> shapePoints_
+}
+
+class Bullet {
+    Bullet()
+    Bullet(int worldWidth, int worldHeight, PointF center, float angle, float scaleFactor = 1, float accFactor = 10.0, float dragFactor = 0)
+
+    virtual void draw()
+    virtual void update()
+}
+
+class   FlyingSaucer {
+    FlyingSaucer()
+    FlyingSaucer(int worldWidth, int worldHeight, PointF center) : Object(worldWidth, worldHeight)
+    
+    virtual void draw()
+    virtual int getRadius()
+}
+
+class Laser {
+    Laser()
+    Laser(int worldWidth, int worldHeight, PointF center, float angle, float scaleFactor = 1, float accFactor = 30.0, float dragFactor = 0)
+
+    virtual void draw()
+    virtual void update()
+
+    PointF endPoint_
+    int shootingTimer_
+}
+
+class SpaceShip {
+    SpaceShip()
+    SpaceShip(int worldWidth, int worldHeight, float scaleFactor = 1, float accFactor = 0.35, float dragFactor = 0.03)
+
+    virtual void draw()
+    virtual int getRadius()
+    PointF getGunPosition()
+}
+
+class ObjectManager {
+    ObjectManager()
+    ObjectManager(int worldWidth, int worldHeight)
+
+    inline void initWorldSize(const int worldWidth, const int worldHeight)
+
+    void createShip()
+    void createAsteroid()
+    void createSaucer()
+    void createBullet()
+    void createLaser()
+    inline void reset()
+    inline void resetShip()
+
+    SpaceShip* getShip()
+    inline bool isShipDestroyed()
+    int getTotalScore()
+
+    void checkCollision()
+    void draw()
+
+    void createAsteroidSpalls(std::shared_ptr<Object> asteroid)
+    void checkEnemyCollision(std::shared_ptr<Object>, std::shared_ptr <Bullet>)
+    void checkShipCollision(std::shared_ptr <Object>)
+
+    int worldWidth_, worldHeight_;
+    bool isSaucerDestroyed_;
+    int totalScore_;
+
+    std::shared_ptr <SpaceShip> ship;
+    std::list < std::shared_ptr <Object> > enemies_;
+    std::list < std::shared_ptr <Bullet> > bullets_;
+}
+
+class Game {
+    Game()
+
+    //scene initialization
+    void initStartScene()
+    void initMainScene()
+    void initEndScene()
+
+    //main key callbacks
+    void controlKeyCallBack(int key)
+    void keyCallBack(unsigned char key)
+
+    //additional key callbacks
+    void startSceneControlKeyCallBack(int key)
+    void mainSceneControlKeyCallBack(int key)
+    void startSceneKeyCallBack(unsigned char key)
+    void mainSceneKeyCallBack(unsigned char key)
+    void endSceneKeyCallBack(unsigned char key)
+
+    //main draw function
+    void drawScene()
+
+    //additional draw functions
+    void drawStartScene()
+    void drawMainScene()
+    void drawEndScene()
+
+    //pointers on key callback and rendering functions
+    void (Game::*controlKeyCallBackPtr) (int)
+    void (Game::*keyCallBackPtr) (unsigned char)
+
+    //pointer on rendering function
+    void (Game::*drawScenePtr) ()
+}

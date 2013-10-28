@@ -1,0 +1,4 @@
+You need to:
+	1. copy glut32.dll to ../System;
+	2. copy glut.h to ../Microsoft Visual Studio/VC/include/GL;
+	2. copy glut32.lib to ../Microsoft Visual Studio/VC/lib.
