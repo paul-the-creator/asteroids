@@ -34,15 +34,7 @@ SOURCES       = $(SOURCE_DIR)/main.cpp \
 		$(SOURCE_DIR)/Laser.cpp \
 		$(SOURCE_DIR)/SpaceShip.cpp 
 
-OBJECTS       = $(OBJECTS_DIR)/main.o \
-		$(OBJECTS_DIR)/Game.o \
-		$(OBJECTS_DIR)/ObjectManager.o \
-		$(OBJECTS_DIR)/Object.o \
-		$(OBJECTS_DIR)/Asteroid.o \
-		$(OBJECTS_DIR)/Bullet.o \
-		$(OBJECTS_DIR)/FlyingSaucer.o \
-		$(OBJECTS_DIR)/Laser.o \
-		$(OBJECTS_DIR)/SpaceShip.o
+OBJECTS=$(SOURCES:.cpp=.o)
 
 all : $(SOURCES) $(TARGET)
 
@@ -68,66 +60,31 @@ obj_dir:
 .c.o:
 	$(CC) -c $(CFLAGS) $(INCPATH) -o "$@" "$<"
 
-$(OBJECTS_DIR)/main.o: $(SOURCE_DIR)/main.cpp $(SOURCE_DIR)/Game.h \
-		$(SOURCE_DIR)/ObjectManager.h \
-		$(SOURCE_DIR)/Asteroid.h \
-		$(SOURCE_DIR)/Object.h \
-		$(SOURCE_DIR)/Point.h \
-		$(SOURCE_DIR)/Bullet.h \
-		$(SOURCE_DIR)/FlyingSaucer.h \
-		$(SOURCE_DIR)/Laser.h \
-		$(SOURCE_DIR)/SpaceShip.h
+$(OBJECTS_DIR)/main.o: $(SOURCE_DIR)/main.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/main.o $(SOURCE_DIR)/main.cpp
 
-$(OBJECTS_DIR)/Game.o: $(SOURCE_DIR)/Game.cpp $(SOURCE_DIR)/Game.h \
-		$(SOURCE_DIR)/ObjectManager.h \
-		$(SOURCE_DIR)/Asteroid.h \
-		$(SOURCE_DIR)/Object.h \
-		$(SOURCE_DIR)/Point.h \
-		$(SOURCE_DIR)/Bullet.h \
-		$(SOURCE_DIR)/FlyingSaucer.h \
-		$(SOURCE_DIR)/Laser.h \
-		$(SOURCE_DIR)/SpaceShip.h
+$(OBJECTS_DIR)/Game.o: $(SOURCE_DIR)/Game.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/Game.o $(SOURCE_DIR)/Game.cpp
 
-$(OBJECTS_DIR)/ObjectManager.o: $(SOURCE_DIR)/ObjectManager.cpp $(SOURCE_DIR)/ObjectManager.h \
-		$(SOURCE_DIR)/Asteroid.h \
-		$(SOURCE_DIR)/Object.h \
-		$(SOURCE_DIR)/Point.h \
-		$(SOURCE_DIR)/Bullet.h \
-		$(SOURCE_DIR)/FlyingSaucer.h \
-		$(SOURCE_DIR)/Laser.h \
-		$(SOURCE_DIR)/SpaceShip.h
+$(OBJECTS_DIR)/ObjectManager.o: $(SOURCE_DIR)/ObjectManager.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/ObjectManager.o $(SOURCE_DIR)/ObjectManager.cpp
 
-$(OBJECTS_DIR)/Object.o: $(SOURCE_DIR)/Object.cpp $(SOURCE_DIR)/Object.h \
-		$(SOURCE_DIR)/Point.h
+$(OBJECTS_DIR)/Object.o: $(SOURCE_DIR)/Object.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/Object.o $(SOURCE_DIR)/Object.cpp
 
-$(OBJECTS_DIR)/Asteroid.o: $(SOURCE_DIR)/Asteroid.cpp $(SOURCE_DIR)/Asteroid.h \
-		$(SOURCE_DIR)/Object.h \
-		$(SOURCE_DIR)/Point.h
+$(OBJECTS_DIR)/Asteroid.o: $(SOURCE_DIR)/Asteroid.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/Asteroid.o $(SOURCE_DIR)/Asteroid.cpp
 
-$(OBJECTS_DIR)/Bullet.o: $(SOURCE_DIR)/Bullet.cpp $(SOURCE_DIR)/Bullet.h \
-		$(SOURCE_DIR)/Object.h \
-		$(SOURCE_DIR)/Point.h
+$(OBJECTS_DIR)/Bullet.o: $(SOURCE_DIR)/Bullet.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/Bullet.o $(SOURCE_DIR)/Bullet.cpp
 
-$(OBJECTS_DIR)/FlyingSaucer.o: $(SOURCE_DIR)/FlyingSaucer.cpp $(SOURCE_DIR)/FlyingSaucer.h \
-		$(SOURCE_DIR)/Object.h \
-		$(SOURCE_DIR)/Point.h
+$(OBJECTS_DIR)/FlyingSaucer.o: $(SOURCE_DIR)/FlyingSaucer.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/FlyingSaucer.o $(SOURCE_DIR)/FlyingSaucer.cpp
 
-$(OBJECTS_DIR)/Laser.o: $(SOURCE_DIR)/Laser.cpp $(SOURCE_DIR)/Laser.h \
-		$(SOURCE_DIR)/Bullet.h \
-		$(SOURCE_DIR)/Object.h \
-		$(SOURCE_DIR)/Point.h
+$(OBJECTS_DIR)/Laser.o: $(SOURCE_DIR)/Laser.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/Laser.o $(SOURCE_DIR)/Laser.cpp
 
-$(OBJECTS_DIR)/SpaceShip.o: $(SOURCE_DIR)/SpaceShip.cpp $(SOURCE_DIR)/SpaceShip.h \
-		$(SOURCE_DIR)/Object.h \
-		$(SOURCE_DIR)/Point.h
+$(OBJECTS_DIR)/SpaceShip.o: $(SOURCE_DIR)/SpaceShip.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/SpaceShip.o $(SOURCE_DIR)/SpaceShip.cpp
 
 clean:
