@@ -36,13 +36,13 @@ void Asteroid::draw()
 
     glColor3f(0, 0, 0);
     glBegin(GL_POLYGON);
-        for(auto point: shapePoints_)
+        for(auto &point: shapePoints_)
             glVertex2f(point.x, point.y);
     glEnd();
 
     glColor3f(1, 1, 1);
     glBegin(GL_LINE_LOOP);
-        for(auto point: shapePoints_)
+        for(auto &point: shapePoints_)
             glVertex2f(point.x, point.y);
     glEnd();
 

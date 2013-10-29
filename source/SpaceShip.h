@@ -13,9 +13,9 @@ public:
 
     ~SpaceShip() { }
 
-#define MAX_LENGTH 20
+#define MAX_SHIP_LENGTH 20
     virtual void draw();
-    virtual int getRadius() { return scaleFactor_ * MAX_LENGTH; }
+    virtual int getRadius() { return scaleFactor_ * MAX_SHIP_LENGTH; }
     PointF getGunPosition();
 };
 

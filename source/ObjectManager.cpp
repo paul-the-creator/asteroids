@@ -74,10 +74,10 @@ void ObjectManager::createLaser()
 void ObjectManager::checkCollision()
 {
     //checking enemy collision
-    for(auto enemy : enemies_)
+    for(auto &enemy : enemies_)
     {
         //collision with bullets
-        for(auto bullet : bullets_)
+        for(auto &bullet : bullets_)
         {
             if(bullet->isCollision())
                 continue;
@@ -137,7 +137,7 @@ void ObjectManager::draw()
     if(ship)
         ship->draw();
 
-    for(auto enemy : enemies_)
+    for(auto &enemy : enemies_)
     {
         if(typeid(*enemy) == typeid(FlyingSaucer))
             if(ship) enemy->followToPoint(ship->getCenter());

@@ -200,7 +200,7 @@ void Game::startSceneControlKeyCallBack(int key)
     {
     //control buttons
     case GLUT_KEY_UP:
-        startButton_ = RUN_GAME;
+            startButton_ = RUN_GAME;
         break;
 
     case GLUT_KEY_DOWN:
@@ -237,12 +237,12 @@ void Game::startSceneKeyCallBack(unsigned char key)
     switch(key)
     {
     //escape key
-    case 27:
+    case ESC_KEY:
         glutDestroyWindow(glutGetWindow());
         break;
     //menu key
-    case 32:
-    case 13:
+    case SPACE_KEY:
+    case ENTER_KEY:
         if(startButton_ == RUN_GAME)
             initMainScene();
         if(startButton_ == EXIT_GAME)
@@ -256,14 +256,14 @@ void Game::mainSceneKeyCallBack(unsigned char key)
     switch(key)
     {
     //escape key
-    case 27:
+    case ESC_KEY:
         initEndScene();
         break;
     //fire key
-    case 32:
+    case SPACE_KEY:
         objectManager.createBullet();
         break;
-    case 13:
+    case ENTER_KEY:
     {
         int curTime = glutGet(GLUT_ELAPSED_TIME);
         if((curTime - laserTimer_) > 5000)
@@ -281,12 +281,12 @@ void Game::endSceneKeyCallBack(unsigned char key)
     switch(key)
     {
     //escape key
-    case 27:
+    case ESC_KEY:
         glutDestroyWindow(glutGetWindow());
         break;
     //fire key
-    case 32:
-    case 13:
+    case SPACE_KEY:
+    case ENTER_KEY:
         initStartScene();
         break;
     }

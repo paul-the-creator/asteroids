@@ -62,6 +62,7 @@ public:
 
 private:
     //start buttons
+    enum {ESC_KEY = 27, SPACE_KEY = 32, ENTER_KEY = 13};
     enum StartButton {RUN_GAME, EXIT_GAME} startButton_;
 
     //pointers on key callback and rendering functions
@@ -84,7 +85,7 @@ inline int renderString(const float x, const float y, void *font, const RGB colo
     glRasterPos2f(x, y);
 
     int stringWidth = 0;
-    for(auto character : text)
+    for(auto &character : text)
     {
         glutBitmapCharacter(font, character);
         stringWidth += glutBitmapWidth(font, character);
