@@ -1,3 +1,10 @@
+/**
+ * @file Object.cpp
+ * @brief Provides main abstract class for game objects
+ * @author paul-the-creator
+ * @date 2013
+ */
+
 #include "Object.h"
 
 void Object::rotate(int angle)

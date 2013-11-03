@@ -1,3 +1,10 @@
+/**
+ * @file ObjectManager.cpp
+ * @brief Provides class for objects managment
+ * @author paul-the-creator
+ * @date 2013
+ */
+
 #include "ObjectManager.h"
 #include <cmath>
 #include <algorithm>

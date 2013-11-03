@@ -1,3 +1,10 @@
+/**
+ * @file SpaceShip.cpp
+ * @brief Provides class for space ship object
+ * @author paul-the-creator
+ * @date 2013
+ */
+
 #include "SpaceShip.h"
 #include <GL/glut.h>
 

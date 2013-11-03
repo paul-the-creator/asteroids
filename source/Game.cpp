@@ -1,3 +1,10 @@
+/**
+ * @file Game.cpp
+ * @brief Provides main class
+ * @author paul-the-creator
+ * @date 2013
+ */
+
 #include "Game.h"
 #include <string>
 

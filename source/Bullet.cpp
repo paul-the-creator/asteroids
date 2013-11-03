@@ -1,3 +1,10 @@
+/**
+ * @file Bullet.cpp
+ * @brief Provides class for bullet object
+ * @author paul-the-creator
+ * @date 2013
+ */
+
 #include "Bullet.h"
 #include <GL/glut.h>
 

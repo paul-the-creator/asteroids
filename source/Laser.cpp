@@ -1,3 +1,10 @@
+/**
+ * @file Laser.cpp
+ * @brief Provides class for laser object
+ * @author paul-the-creator
+ * @date 2013
+ */
+
 #include "Laser.h"
 
 void Laser::update()

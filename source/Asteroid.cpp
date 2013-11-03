@@ -1,3 +1,10 @@
+/**
+ * @file Asteroid.cpp
+ * @brief Provides class for asteroid object
+ * @author paul-the-creator
+ * @date 2013
+ */
+
 #include "Asteroid.h"
 #include "GL/glut.h"
 #include <algorithm>
