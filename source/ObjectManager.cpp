@@ -6,6 +6,7 @@
  */
 
 #include "ObjectManager.h"
+#include "Renderer.h"
 #include <cmath>
 #include <algorithm>
 
@@ -142,15 +143,18 @@ void ObjectManager::draw()
     checkCollision();
 
     if(ship)
-        ship->draw();
+    {
+        renderer.draw(*ship);
+        renderer.draw(*(ship->getEngineTrack()));
+    }
 
-    for(auto &enemy : enemies_)
+    for(auto enemy : enemies_)
     {
         if(typeid(*enemy) == typeid(FlyingSaucer))
             if(ship) enemy->followToPoint(ship->getCenter());
-        enemy->draw();
+        renderer.draw(*enemy);
     }
 
-    for(auto bulletIt = bullets_.begin(); bulletIt != bullets_.end(); ++bulletIt)
-                (*bulletIt)->draw();
+    for(auto bullet : bullets_)
+        renderer.draw(*bullet);
 }

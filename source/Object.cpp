@@ -7,19 +7,14 @@
 
 #include "Object.h"
 
-void Object::rotate(int angle)
-{
-    this->angle_ += angle;
-}
-
-void Object::move()
-{
-    //normalized vector of the direction
-    PointF dirVec = this->getDirection();
-    velocityVec_ += dirVec * accFactor_;
-}
-
 void Object::update()
+{
+    updatePosition();
+    checkWorldPosition();
+    additionalUpdate();
+}
+
+void Object::updatePosition()
 {
     // Update position based on velocity vector
     center_ += velocityVec_;
@@ -27,7 +22,10 @@ void Object::update()
     // Use Stokes' law to apply drag to the object
     velocityVec_.x -= velocityVec_.x * dragFactor_;
     velocityVec_.y -= velocityVec_.y * dragFactor_;
+}
 
+void Object::checkWorldPosition()
+{
     // Keep object in game world
     if (center_.x < -worldWidth_/2) center_.x += worldWidth_;
     if (center_.x >= worldWidth_/2) center_.x -= worldWidth_;

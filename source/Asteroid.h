@@ -9,8 +9,6 @@
 #define ASTEROID_H
 
 #include "Object.h"
-#include "Point.h"
-#include <vector>
 #include <GL/glut.h>
 
 /**
@@ -22,10 +20,7 @@
 class Asteroid : public Object
 {
 public:
-    /**
-      * @brief constructors
-      */
-    Asteroid() { }
+    Asteroid() { createGeometry(); }
     Asteroid(int worldWidth, int worldHeight, PointF center, float angle, float scaleFactor = 1)
         : Object(worldWidth, worldHeight, scaleFactor, 2.5)
     {
@@ -37,15 +32,7 @@ public:
         createGeometry();
     }
 
-    ~Asteroid() { }
-
-
-    /**
-      * @brief draw function
-      * @remarks function is virtual
-      * @return void
-      */
-    virtual void draw();
+    virtual ~Asteroid() { }
 
 #define MAX_RADIUS 60
     /**
@@ -56,14 +43,22 @@ public:
       */
     virtual int getRadius() { return scaleFactor_ * MAX_RADIUS; }
 
+protected:
+    /**
+      * @brief function permormce special update for this object type
+      * @remarks function is virtual
+      * @return void
+      */
+    virtual void additionalUpdate();
+
 private:
     /**
       * @brief function generates asteroid's shape points
       * @return void
       */
-    void createGeometry();
+    virtual void createGeometry();
+    /// variable sets rotation speed
     float rotFactor_;
-    std::vector<PointF> shapePoints_;
 };
 
 #endif // ASTEROID_H

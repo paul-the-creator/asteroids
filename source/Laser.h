@@ -20,31 +20,20 @@
 class Laser : public Bullet
 {
 public:
-    /**
-      * @brief constructors
-      */
-    Laser() { }
+    Laser() { createGeometry(); }
     Laser(int worldWidth, int worldHeight, PointF center, float angle, float scaleFactor = 1, float accFactor = 30.0, float dragFactor = 0)
         : Bullet(worldWidth, worldHeight, center, angle, scaleFactor, accFactor, dragFactor)
     {
         this->endPoint_ = center;
         this->shootingTimer_ = glutGet(GLUT_ELAPSED_TIME);
+
+        createGeometry();
     }
 
-    ~Laser() { }
+    virtual ~Laser() { }
 
-    /**
-      * @brief update function
-      * @remarks function updates object position
-      * @return void
-      */
-	virtual void update();
-    /**
-      * @brief draw function
-      * @remarks function is virtual
-      * @return void
-      */
-    virtual void draw();
+#define LASER_LENGTH 20
+
     /**
       * @brief function returns laser radius
       * @remarks function needed for collision detection
@@ -52,10 +41,32 @@ public:
       * @return int - radius value
       */
 	virtual int getRadius() { return 0; }
-    
-#define LASER_LENGTH 20
+
+protected:
+    /**
+      * @brief function checks object position inside game world
+      * @remarks function is virtual
+      * @return void
+      */
+    virtual void checkWorldPosition();
+    /**
+      * @brief function permormce special update for this object type
+      * @remarks function is virtual
+      * @return void
+      */
+    virtual void additionalUpdate();
+
 private:
+    /**
+      * @brief function generates lazer's shape points
+      * @return void
+      */
+    virtual void createGeometry();
+    
+private:
+    /// laser end point
     PointF endPoint_;
+    /// time value in ms for proportional laser increasing
     int shootingTimer_;
 };
 

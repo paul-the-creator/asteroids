@@ -26,9 +26,6 @@
 class ObjectManager
 {
 public:
-    /**
-      * @brief constructors
-      */
     ObjectManager() { reset(); }
     ObjectManager(int worldWidth, int worldHeight)
         : worldWidth_(worldWidth), worldHeight_(worldHeight) { reset(); }

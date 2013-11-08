@@ -28,30 +28,12 @@ void Asteroid::createGeometry()
         float y = static_cast<float>(-cos(angleFinal) * radius);
         shapePoints_.push_back(PointF(x, y));
     }
+
+    lineColor_ = WHITE;
+    polygonColor_ = BLACK;
 }
 
-void Asteroid::draw()
+void Asteroid::additionalUpdate()
 {
-    update();
-
     angle_ += rotFactor_;
-
-    glPushMatrix();
-    glTranslatef(center_.x, center_.y, 0);
-    glScalef(scaleFactor_, scaleFactor_, 1);
-    glRotatef(angle_, 0, 0, 1);
-
-    glColor3f(0, 0, 0);
-    glBegin(GL_POLYGON);
-        for(auto &point: shapePoints_)
-            glVertex2f(point.x, point.y);
-    glEnd();
-
-    glColor3f(1, 1, 1);
-    glBegin(GL_LINE_LOOP);
-        for(auto &point: shapePoints_)
-            glVertex2f(point.x, point.y);
-    glEnd();
-
-    glPopMatrix();
 }

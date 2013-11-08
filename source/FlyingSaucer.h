@@ -9,7 +9,6 @@
 #define FLYINGSAUCER_H
 
 #include "Object.h"
-#include "Point.h"
 
 /**
  * @class FlyingSaucer
@@ -20,10 +19,7 @@
 class   FlyingSaucer : public Object
 {
 public:
-    /**
-      * @brief constructors
-      */
-    FlyingSaucer() { }
+    FlyingSaucer() { createGeometry(); }
     FlyingSaucer(int worldWidth, int worldHeight, PointF center) : Object(worldWidth, worldHeight)
     {
         this->center_ = center;
@@ -31,25 +27,28 @@ public:
         this->accFactor_ = 2;
         this->velocityVec_ = PointF();
         this->scaleFactor_ = static_cast<float>(randomValue(5, 12)) / 10;
+
+        createGeometry();
     }
 
-    ~FlyingSaucer() { }
-
-    /**
-      * @brief draw function
-      * @remarks function is virtual
-      * @return void
-      */
-    virtual void draw();
+    virtual ~FlyingSaucer() { }
 
 #define MAX_LENGTH 50
+
     /**
-      * @brief function returns asteroid radius
+      * @brief function returns saucer radius
       * @remarks function needed for collision detection
       * @remarks function is virtual
       * @return int - radius value
       */
     virtual int getRadius() { return scaleFactor_ * 0.75 * MAX_LENGTH; }
+
+private:
+    /**
+      * @brief function generates saucer's shape points
+      * @return void
+      */
+    virtual void createGeometry();
 };
 
 #endif // FLYINGSAUCER_H

@@ -11,22 +11,6 @@
 #include "ObjectManager.h"
 
 /**
- * @struct RGB
- * @brief struct for color presentation
- * @author paul-the-creator
- * @date 2013
- */
-#undef RGB
-struct RGB
-{
-	RGB() { }
-    RGB(float red, float green, float blue) : redComponent(red), greenComponent(green), blueComponent(blue) { }
-    float redComponent;
-    float greenComponent;
-    float blueComponent;
-};
-
-/**
  * @class Game
  * @brief main class
  * @author paul-the-creator

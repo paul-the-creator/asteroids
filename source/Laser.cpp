@@ -7,41 +7,30 @@
 
 #include "Laser.h"
 
-void Laser::update()
+void Laser::createGeometry()
 {
-    // Update position based on velocity vector
-    center_ += velocityVec_;
+    shapePoints_.clear();
+    shapePoints_.push_back( PointF(0, 0) );
+    shapePoints_.push_back( velocityVec_ * 1.5 );
 
-    //making effect of growing shoot
-    if(glutGet(GLUT_ELAPSED_TIME) - shootingTimer_ > accFactor_ * 5)
-        endPoint_ += velocityVec_;
+    lineColor_ = BLUE;
+    polygonColor_ = BLUE;
+}
 
-    // Use Stokes' law to apply drag to the laser shoot
-    velocityVec_.x -= velocityVec_.x * dragFactor_;
-    velocityVec_.y -= velocityVec_.y * dragFactor_;
-
+void Laser::checkWorldPosition()
+{
     //Remove laser shoot in case if it out game world
     if (endPoint_.x < -worldWidth_/2 || endPoint_.x >= worldWidth_/2 ||
         endPoint_.y < -worldHeight_/2 || endPoint_.y >= worldHeight_/2)
         setCollision();
 }
 
-void Laser::draw()
+void Laser::additionalUpdate()
 {
-    update();
-
-    glPushMatrix();
-    glTranslatef(center_.x, center_.y, 0);
-    glScalef(scaleFactor_, scaleFactor_, 1);
-    glRotatef(angle_, 0, 0, 1);
-    glColor3f(0, 0.5, 1);
-
-    //drawing bullet
-    glBegin(GL_LINES);
-        glVertex2f(0, 0);
-        glVertex2f(endPoint_.x - center_.x, endPoint_.y - center_.y);
-    glEnd();
-
-    glPopMatrix();
+    //making effect of growing shoot
+    if(glutGet(GLUT_ELAPSED_TIME) - shootingTimer_ > accFactor_ * 5)
+    {
+        //endPoint_ += velocityVec_;
+        shapePoints_[1] += velocityVec_;
+    }
 }
-
