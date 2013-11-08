@@ -26,10 +26,12 @@ TARGET        = $(TARGET_DIR)/asteroids
 
 SOURCES       = $(SOURCE_DIR)/main.cpp \
 		$(SOURCE_DIR)/Game.cpp \
+		$(SOURCE_DIR)/Renderer.cpp \
 		$(SOURCE_DIR)/ObjectManager.cpp \
 		$(SOURCE_DIR)/Object.cpp \
 		$(SOURCE_DIR)/Asteroid.cpp \
 		$(SOURCE_DIR)/Bullet.cpp \
+		$(SOURCE_DIR)/EngineTrack.cpp \
 		$(SOURCE_DIR)/FlyingSaucer.cpp \
 		$(SOURCE_DIR)/Laser.cpp \
 		$(SOURCE_DIR)/SpaceShip.cpp 
@@ -66,6 +68,9 @@ $(OBJECTS_DIR)/main.o: $(SOURCE_DIR)/main.cpp
 $(OBJECTS_DIR)/Game.o: $(SOURCE_DIR)/Game.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/Game.o $(SOURCE_DIR)/Game.cpp
 
+$(OBJECTS_DIR)/Game.o: $(SOURCE_DIR)/Renderer.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/Renderer.o $(SOURCE_DIR)/Renderer.cpp
+
 $(OBJECTS_DIR)/ObjectManager.o: $(SOURCE_DIR)/ObjectManager.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/ObjectManager.o $(SOURCE_DIR)/ObjectManager.cpp
 
@@ -77,6 +82,9 @@ $(OBJECTS_DIR)/Asteroid.o: $(SOURCE_DIR)/Asteroid.cpp
 
 $(OBJECTS_DIR)/Bullet.o: $(SOURCE_DIR)/Bullet.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/Bullet.o $(SOURCE_DIR)/Bullet.cpp
+
+$(OBJECTS_DIR)/Bullet.o: $(SOURCE_DIR)/EngineTrack.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/EngineTrack.o $(SOURCE_DIR)/EngineTrack.cpp
 
 $(OBJECTS_DIR)/FlyingSaucer.o: $(SOURCE_DIR)/FlyingSaucer.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o $(OBJECTS_DIR)/FlyingSaucer.o $(SOURCE_DIR)/FlyingSaucer.cpp
