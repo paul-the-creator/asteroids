@@ -81,23 +81,27 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\source\Asteroid.cpp" />
     <ClCompile Include="..\..\..\source\Bullet.cpp" />
+    <ClCompile Include="..\..\..\source\EngineTrack.cpp" />
     <ClCompile Include="..\..\..\source\FlyingSaucer.cpp" />
     <ClCompile Include="..\..\..\source\Game.cpp" />
     <ClCompile Include="..\..\..\source\Laser.cpp" />
     <ClCompile Include="..\..\..\source\main.cpp" />
     <ClCompile Include="..\..\..\source\Object.cpp" />
     <ClCompile Include="..\..\..\source\ObjectManager.cpp" />
+    <ClCompile Include="..\..\..\source\Renderer.cpp" />
     <ClCompile Include="..\..\..\source\SpaceShip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source\Asteroid.h" />
     <ClInclude Include="..\..\..\source\Bullet.h" />
+    <ClInclude Include="..\..\..\source\EngineTrack.h" />
     <ClInclude Include="..\..\..\source\FlyingSaucer.h" />
     <ClInclude Include="..\..\..\source\Game.h" />
     <ClInclude Include="..\..\..\source\Laser.h" />
     <ClInclude Include="..\..\..\source\Object.h" />
     <ClInclude Include="..\..\..\source\ObjectManager.h" />
     <ClInclude Include="..\..\..\source\Point.h" />
+    <ClInclude Include="..\..\..\source\Renderer.h" />
     <ClInclude Include="..\..\..\source\SpaceShip.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -100,7 +100,7 @@ public:
 private:
     //start buttons
     enum {ESC_KEY = 27, SPACE_KEY = 32, ENTER_KEY = 13};
-    enum StartButton {RUN_GAME, EXIT_GAME} startButton_;
+    enum StartButton {RUN_GAME, SET_MODE, EXIT_GAME} startButton_;
 
     //pointers on key callback and rendering functions
     void (Game::*controlKeyCallBackPtr) (int);

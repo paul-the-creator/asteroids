@@ -29,6 +29,7 @@ public:
         this->angle_ = 0;
 
         createGeometry();
+        loadTexture("../other/asteroid_texture.jpg");
     }
 
     virtual ~Bullet() { }

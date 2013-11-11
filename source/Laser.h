@@ -9,7 +9,6 @@
 #define LASER_H
 
 #include "Bullet.h"
-#include <GL/glut.h>
 
 /**
  * @class Laser

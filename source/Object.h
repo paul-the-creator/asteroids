@@ -12,6 +12,7 @@
 #include <cmath>
 #include <random>
 #include <time.h>
+#include "GL/glut.h"
 #include "Point.h"
 
 /**
@@ -65,28 +66,11 @@ public:
     Object(int worldWidth, int worldHeight, float scaleFactor = 1, float accFactor = 0, float dragFactor = 0)
     {
         setMainParameters(worldWidth, worldHeight, scaleFactor, accFactor, dragFactor);
+        followToPointFunc = nullptr;
+        updateVelocityFunc = nullptr;
     }
 
     virtual ~Object() { }
-
-    /**
-      * @brief Function sets parameters initial state
-      * @param worldWidth - game scene width
-      * @param worldHeight - game scene height
-      * @param scaleFactor - scale parameter
-      * @param accFactor - acceleration parameter
-      * @param dragFactor - drag parameter
-      * @return void
-      */
-    inline void setMainParameters(int worldWidth, int worldHeight, float scaleFactor, float accFactor, float dragFactor)
-    {
-        this->worldWidth_ = worldWidth;
-        this->worldHeight_ = worldHeight;
-        this->scaleFactor_ = scaleFactor;
-        this->accFactor_ = accFactor;
-        this->dragFactor_ = dragFactor;
-        this->isCollision_ = false;
-    }
 
     /**
       * @brief main update function
@@ -95,7 +79,13 @@ public:
       */
     void update();
     /**
-      * @brief function returns bullet radius
+      * @brief function loads texture
+      * @param texturePath - path to texture image
+      * @return void
+      */
+    void loadTexture(std::string texturePath);
+    /**
+      * @brief function returns object radius
       * @remarks function needed for collision detection
       * @remarks function is empty virtual method; needed to be determined at inheritance class
       * @return int - radius value
@@ -142,7 +132,11 @@ public:
       * @return RGB - line color
       */
     inline RGB getPolygonColor() { return polygonColor_; }
-
+    /**
+      * @brief function returns texture ID
+      * @return GLuint - texture ID
+      */
+    inline GLuint getTextureID() { return textureID_; }
     /**
       * @brief function sets collision flag
       * @return void
@@ -154,14 +148,41 @@ public:
       */
     bool isCollision() const { return isCollision_; }
     /**
-      * @brief function changes velocity vector to follow to point
+      * @brief function leads object to follow the point
       * @param point - necessary point
       * @return void
       */
     inline void followToPoint(PointF point)
     {
-        PointF followDir = point - center_;
-        velocityVec_ = followDir.normalized() * accFactor_;
+        if(this->followToPointFunc != nullptr)
+            (this->*followToPointFunc)(point);
+    }
+    /**
+      * @brief function sets following trajectory as line
+      * @return void
+      */
+    inline void setFollowingByLine()
+    {
+        followToPointFunc = &Object::followToPointByLine;
+        updateVelocityFunc = nullptr;
+    }
+    /**
+      * @brief function sets following trajectory as arc
+      * @return void
+      */
+    inline void setFollowingByArc()
+    {
+        followToPointFunc = &Object::followToPointByArc;
+        updateVelocityFunc = &Object::updateVelocityToArc;
+    }
+    /**
+      * @brief function sets following trajectory as zig-zag
+      * @return void
+      */
+    inline void setFollowingByZigZag()
+    {
+        followToPointFunc = &Object::followToPointByZigZag;
+        updateVelocityFunc = &Object::updateVelocityToZigZag;
     }
 
 protected:
@@ -170,7 +191,91 @@ protected:
     virtual void additionalUpdate() { }
 
 private:
+    /**
+      * @brief Function sets parameters initial state
+      * @param worldWidth - game scene width
+      * @param worldHeight - game scene height
+      * @param scaleFactor - scale parameter
+      * @param accFactor - acceleration parameter
+      * @param dragFactor - drag parameter
+      * @return void
+      */
+    inline void setMainParameters(int worldWidth, int worldHeight, float scaleFactor, float accFactor, float dragFactor)
+    {
+        this->worldWidth_ = worldWidth;
+        this->worldHeight_ = worldHeight;
+        this->scaleFactor_ = scaleFactor;
+        this->accFactor_ = accFactor;
+        this->dragFactor_ = dragFactor;
+        this->isCollision_ = false;
+    }
+    /**
+      * @brief function updates object coordinates
+      * @return void
+      */
     void updatePosition();
+    /**
+      * @brief function updates velocity
+      * @remarks changes velocity vector to follow to point
+      * @return void
+      */
+    void updateVelocity();
+    /**
+      * @brief function changes velocity vector to follow the point by line trajectory
+      * @return void
+      */
+    inline void followToPointByLine(PointF point)
+    {
+        PointF followDir = point - center_;
+        velocityVec_ = followDir.normalized() * accFactor_;
+    }
+    /**
+      * @brief function changes velocity vector to follow the point by arc trajectory
+      * @return void
+      */
+    inline void followToPointByArc(PointF point)
+    {
+        PointF followDir = point - center_;
+        followDir.normalize();
+        velocityVec_ = PointF(followDir.y, -followDir.x) * accFactor_;
+    }
+    /**
+      * @brief function changes velocity vector to follow the point by zig-zag trajectory
+      * @return void
+      */
+    inline void followToPointByZigZag(PointF point)
+    {
+        PointF followDir = point - center_;
+        followDir.normalize();
+        //rotating vector by 45 deg
+        const int angle = 45;
+        float x = followDir.x * cos(angle) - followDir.y * sin(45);
+        float y = followDir.y * cos(angle) + followDir.x * sin(angle);
+        velocityVec_ = PointF(x, y) * accFactor_;
+    }
+    /**
+      * @brief function updates velocity to follow the point by arc trajectory
+      * @return void
+      */
+    inline void updateVelocityToArc()
+    {
+        //rotating velocity vector by some angle
+        const int angle = 15;
+        float x = velocityVec_.x * cos(angle) - velocityVec_.y * sin(angle);
+        float y = velocityVec_.y * cos(angle) + velocityVec_.x * sin(angle);
+        velocityVec_ = PointF(x, y);
+    }
+    /**
+      * @brief function updates velocity to follow the point by zig-zag trajectory
+      * @return void
+      */
+    inline void updateVelocityToZigZag()
+    {
+        int curTime = glutGet(GLUT_ELAPSED_TIME);
+        float modTime = static_cast<float>(curTime % 50);
+        if(modTime < 5 || modTime > 45)
+            velocityVec_ = PointF(velocityVec_.y, -velocityVec_.x);
+    }
 
 protected:
     //game world size
@@ -195,6 +300,13 @@ protected:
     RGB lineColor_;
     //polygon color
     RGB polygonColor_;
+    //texture ID
+    GLuint textureID_;
+
+private:
+    //pointers on method
+    void(Object::*followToPointFunc)(PointF point);
+    void(Object::*updateVelocityFunc)();
 };
 
 #endif // OBJECT_H

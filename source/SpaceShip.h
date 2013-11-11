@@ -29,6 +29,7 @@ public:
         engineTrack_ = std::shared_ptr <EngineTrack>( new EngineTrack(worldWidth, worldHeight, scaleFactor, accFactor, dragFactor) );
 
         createGeometry();
+        loadTexture("../other/asteroid_texture.jpg");
     }
 
     virtual ~SpaceShip() { }

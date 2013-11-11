@@ -9,7 +9,6 @@
 #define ASTEROID_H
 
 #include "Object.h"
-#include <GL/glut.h>
 
 /**
  * @class Asteroid
@@ -30,6 +29,7 @@ public:
         this->rotFactor_ = static_cast<float>(randomValue(1, 10)) / 10;
 
         createGeometry();
+        loadTexture("../other/asteroid_texture.jpg");
     }
 
     virtual ~Asteroid() { }

@@ -59,7 +59,7 @@ struct Point
     /**
       * @brief Aritmetical operations
       */
-    Point operator-()
+    Point operator-() const
     {
         return Point(-this->x, -this->y);
     }
@@ -100,6 +100,12 @@ struct Point
         this->x *= value;
         this->y *= value;
         return *this;
+    }
+    //scalar product
+    T operator*(const Point& obj)
+    {
+        float scalarProd = this->x * obj.y + this->y * obj.x;
+        return scalarProd;
     }
 
     T x, y;

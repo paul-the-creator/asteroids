@@ -6,7 +6,6 @@
  */
 
 #include "FlyingSaucer.h"
-#include <GL/glut.h>
 
 void FlyingSaucer::createGeometry()
 {

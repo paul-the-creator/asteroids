@@ -13,6 +13,7 @@
 #include "FlyingSaucer.h"
 #include "Laser.h"
 #include "SpaceShip.h"
+#include "Renderer.h"
 
 #include <list>
 #include <memory>

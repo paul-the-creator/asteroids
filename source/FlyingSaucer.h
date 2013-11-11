@@ -29,6 +29,8 @@ public:
         this->scaleFactor_ = static_cast<float>(randomValue(5, 12)) / 10;
 
         createGeometry();
+        loadTexture("../other/asteroid_texture.jpg");
+        setFollowingByLine();
     }
 
     virtual ~FlyingSaucer() { }

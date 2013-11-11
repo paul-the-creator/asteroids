@@ -4,9 +4,8 @@
  * @author paul-the-creator
  * @date 2013
  */
-#include "iostream"
+
 #include "Bullet.h"
-#include <GL/glut.h>
 
 void Bullet::createGeometry()
 {

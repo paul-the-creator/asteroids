@@ -6,7 +6,6 @@
  */
 
 #include "SpaceShip.h"
-#include <GL/glut.h>
 
 void SpaceShip::createGeometry()
 {

@@ -6,7 +6,6 @@
  */
 
 #include "ObjectManager.h"
-#include "Renderer.h"
 #include <cmath>
 #include <algorithm>
 
@@ -64,7 +63,9 @@ void ObjectManager::createSaucer()
         return;
 
     PointF center = getRandPoint(worldWidth_/2, worldHeight_/2);
-    enemies_.push_back( std::shared_ptr <FlyingSaucer>(new FlyingSaucer(worldWidth_, worldHeight_, center)) );
+    auto saucerPtr = std::make_shared <FlyingSaucer> (worldWidth_, worldHeight_, center);
+    saucerPtr->setFollowingByZigZag();
+    enemies_.push_back(saucerPtr);
 
     isSaucerDestroyed_ = false;
 }

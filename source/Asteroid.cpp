@@ -6,7 +6,6 @@
  */
 
 #include "Asteroid.h"
-#include "GL/glut.h"
 #include <algorithm>
 
 void Asteroid::createGeometry()

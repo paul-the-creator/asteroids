@@ -21,7 +21,12 @@ class EngineTrack : public Object
 public:
     EngineTrack() { createGeometry(); }
     EngineTrack(int worldWidth, int worldHeight, float scaleFactor = 1, float accFactor = 0.35, float dragFactor = 0.03)
-        : Object(worldWidth, worldHeight, scaleFactor, accFactor, dragFactor) { this->angle_ = 0; createGeometry();}
+        : Object(worldWidth, worldHeight, scaleFactor, accFactor, dragFactor)
+    {
+        this->angle_ = 0;
+        createGeometry();
+        loadTexture("../other/asteroid_texture.jpg");
+    }
 
     virtual ~EngineTrack() { }
 

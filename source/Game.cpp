@@ -88,21 +88,28 @@ void Game::drawStartScene()
     objectManager.draw();
 
     //drawing menu text
-    RGB startColor, exitColor;
+    RGB startColor, modeColor, exitColor;
     switch (startButton_)
     {
     case RUN_GAME:
         startColor = RGB(0, 0.6, 1);
+        modeColor = exitColor = RGB(1, 1, 1);
+        break;
+    case SET_MODE:
+        startColor = RGB(1, 1, 1);
+        modeColor = RGB(0, 0.6, 1);
         exitColor = RGB(1, 1, 1);
         break;
     case EXIT_GAME:
-        startColor = RGB(1, 1, 1);
+        startColor = modeColor = RGB(1, 1, 1);
         exitColor = RGB(0, 0.6, 1);
         break;
     }
     renderString(-0.5 * MAX_X, 0.5 * MAX_Y, GLUT_BITMAP_9_BY_15, RGB(1, 1, 1), "ASTEROIDS");
     renderString(-0.45 * MAX_X, 0.3 * MAX_Y, GLUT_BITMAP_8_BY_13, startColor, "START GAME");
-    renderString(-0.45 * MAX_X, 0.2 * MAX_Y, GLUT_BITMAP_8_BY_13, exitColor, "EXIT GAME");
+    std::string modeStr = (renderer.getRenderMode() == Renderer::VECTOR_MODE) ? "SPRITE MODE" : "VECTOR MODE";
+    renderString(-0.45 * MAX_X, 0.2 * MAX_Y, GLUT_BITMAP_8_BY_13, modeColor, modeStr.c_str());
+    renderString(-0.45 * MAX_X, 0.1 * MAX_Y, GLUT_BITMAP_8_BY_13, exitColor, "EXIT GAME");
 
     //drawing key manual
     //  some uninteresting hardcode
@@ -207,11 +214,17 @@ void Game::startSceneControlKeyCallBack(int key)
     {
     //control buttons
     case GLUT_KEY_UP:
+        if(startButton_ == SET_MODE)
             startButton_ = RUN_GAME;
+        else
+            startButton_ = SET_MODE;
         break;
 
     case GLUT_KEY_DOWN:
-        startButton_ = EXIT_GAME;
+        if(startButton_ == SET_MODE)
+            startButton_ = EXIT_GAME;
+        else
+            startButton_ = SET_MODE;
         break;
     }
 }
@@ -252,6 +265,8 @@ void Game::startSceneKeyCallBack(unsigned char key)
     case ENTER_KEY:
         if(startButton_ == RUN_GAME)
             initMainScene();
+        if(startButton_ == SET_MODE)
+            renderer.changeMode();
         if(startButton_ == EXIT_GAME)
             glutDestroyWindow(glutGetWindow());
         break;

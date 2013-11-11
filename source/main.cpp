@@ -1,5 +1,5 @@
 #include "Game.h"
-#include <GL/glut.h>
+#include "GL/glut.h"
 #include <cstdlib>
 
 void init(int argc, char** argv)
@@ -10,6 +10,8 @@ void init(int argc, char** argv)
     glutInitWindowPosition(100, 100);
     glutCreateWindow("Asteroids");
     glClearColor(0, 0, 0, 1.0);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_TEXTURE_2D);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(-Game::WIDTH / 2, Game::WIDTH / 2, -Game::HEIGHT / 2, Game::HEIGHT / 2, -1.0, 1.0);
